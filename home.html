@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GYMWEARS ecom</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#fbfbfc; --card:#ffffff; --muted:#9aa0a6; --accent:#ff3b30; --black:#0f1724;
+      --radius:18px; --shadow-lg: 0 20px 50px rgba(16,24,40,0.08); --shadow-sm:0 6px 18px rgba(16,24,40,0.06);
+      --tile-black: linear-gradient(180deg,#111,#1f1f22);
+      --tile-yellow: linear-gradient(180deg,#ffd84d,#ffd24d);
+      --tile-red: linear-gradient(180deg,#ff6161,#ff4b4b);
+      --tile-light: linear-gradient(180deg,#ffffff,#f0f2f4);
+      --tile-green: linear-gradient(180deg,#2bd98b,#21c97a);
+      --tile-blue: linear-gradient(180deg,#2f8cff,#256df1);
+      --maxw:1180px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Segoe UI,Roboto,Helvetica,Arial;color:var(--black);background:var(--bg);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit}
+    .wrap{max-width:var(--maxw);margin:26px auto;padding:16px}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+    .brand{font-weight:800;letter-spacing:3px;color:var(--accent);font-size:18px}
+    nav.desktop{display:flex;gap:18px;align-items:center}
+    nav.desktop a{color:#6b6f76;font-size:14px}
+    .header-icons{display:flex;gap:12px;align-items:center}
+    .icon{width:36px;height:36px;border-radius:10px;background:var(--card);display:grid;place-items:center;box-shadow:var(--shadow-sm);cursor:pointer}
+    .hamburger{display:none;font-size:22px;cursor:pointer}
+
+    /* mobile nav */
+    .mobile-nav{position:fixed;top:0;left:-100%;width:72%;height:100%;background:var(--card);z-index:1200;padding:84px 20px;box-shadow:2px 0 30px rgba(0,0,0,0.15);transition:0.32s}
+    .mobile-nav.active{left:0}
+    .mobile-nav a{display:flex;gap:12px;padding:14px 8px;border-radius:10px;color:var(--black);align-items:center}
+
+    /* hero */
+    .hero{background:linear-gradient(180deg,#e9eaec 0%, #f8f8f9 100%);padding:28px;border-radius:18px;display:grid;grid-template-columns:1fr 480px;gap:22px;align-items:center;box-shadow:var(--shadow-sm)}
+    .eyebrow{font-size:14px;color:var(--muted);margin-bottom:6px}
+    .hero-title{font-size:56px;line-height:0.95;font-weight:800;margin:0}
+    .hero-desc{color:var(--muted);max-width:460px;margin-top:12px}
+    .cta{margin-top:18px}
+    .btn{background:var(--accent);color:#fff;padding:12px 22px;border-radius:999px;border:0;font-weight:700;cursor:pointer;box-shadow:0 10px 30px rgba(255,59,48,0.12)}
+    .hero-card{display:grid;place-items:center;background:var(--card);border-radius:14px;height:360px;box-shadow:var(--shadow-lg);position:relative;overflow:visible}
+    .hero-card img{width:74%;transform:rotate(-8deg);filter:drop-shadow(0 30px 40px rgba(0,0,0,0.12));animation:float 4s ease-in-out infinite}
+
+    /* tiles */
+    .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    .tile{border-radius:14px;padding:20px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;min-height:120px;position:relative;overflow:hidden}
+    .tile .label{font-weight:700;font-size:18px}
+    .btn-sm{background:rgba(255,255,255,0.95);color:#111;padding:8px 14px;border-radius:999px;border:0;font-weight:700;cursor:pointer}
+    .tile.black{background:var(--tile-black)}
+    .tile.yellow{background:var(--tile-yellow);color:#111}
+    .tile.red{background:var(--tile-red)}
+    .tile.light{background:var(--tile-light);color:#111}
+    .tile.green{background:var(--tile-green)}
+    .tile.blue{background:var(--tile-blue)}
+
+    /* features */
+    .features{display:flex;gap:18px;margin:20px 0;align-items:center}
+    .feature{flex:1;background:var(--card);padding:14px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-sm)}
+    .feature .icon-wrap{width:44px;height:44px;border-radius:10px;background:#fff;display:grid;place-items:center;font-size:18px}
+
+    /* promo band */
+    .promo{margin-top:20px;background:linear-gradient(90deg,var(--accent),#c10000);color:#fff;padding:36px;border-radius:18px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+    .promo .left{flex:1}
+    .promo h2{font-size:40px;margin:0}
+    .promo .right{width:380px;display:grid;place-items:center}
+    .promo .right img{width:90%;filter:drop-shadow(0 25px 40px rgba(0,0,0,0.14))}
+
+    /* best sellers */
+    .section-title{text-align:center;margin-top:42px}
+    .products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:18px}
+    .product{background:var(--card);border-radius:14px;padding:14px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:10px;position:relative;overflow:visible}
+    .product img{width:100%;height:140px;object-fit:contain}
+    .price-row{display:flex;justify-content:space-between;align-items:center}
+
+    /* add-to-cart flying clone */
+    .flying-img { position:fixed;pointer-events:none;z-index:9999;transition:transform 0.7s cubic-bezier(.2,.9,.3,1),opacity .7s;will-change:transform,opacity; }
+
+    /* cart */
+    .cart-fab{position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;padding:12px 16px;border-radius:999px;box-shadow:0 18px 40px rgba(0,0,0,0.18);cursor:pointer;z-index:150;display:flex;gap:8px;align-items:center}
+    .cart-panel{position:fixed;right:18px;bottom:78px;width:360px;max-height:70vh;background:var(--card);border-radius:12px;box-shadow:0 24px 80px rgba(10,10,10,0.12);overflow:auto;padding:12px;display:none;z-index:160}
+    .cart-item{display:flex;gap:12px;align-items:center;padding:8px;border-bottom:1px solid #f0f0f0}
+
+    /* contact + footer */
+    .contact-section{margin-top:30px;background:var(--card);padding:22px;border-radius:12px;box-shadow:var(--shadow-sm)}
+    .contact-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .contact-card{flex:1;min-width:260px}
+    .contact-form{flex:1;min-width:300px}
+    .contact-form input,.contact-form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #eee;margin-bottom:10px}
+    footer{margin-top:22px;padding:26px;background:var(--card);border-radius:12px;box-shadow:var(--shadow-sm)}
+
+    /* slide-up animation util */
+    .hidden{opacity:0;transform:translateY(40px);transition:all .7s cubic-bezier(.2,.9,.3,1)}
+    .show{opacity:1;transform:none}
+
+    /* responsive */
+    @media (max-width:1100px){
+      .hero{grid-template-columns:1fr 420px}
+      .products{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width:900px){
+      nav.desktop{display:none}
+      .hamburger{display:block}
+      .tiles{grid-template-columns:repeat(2,1fr)}
+      .products{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:780px){
+      .hero{grid-template-columns:1fr;padding:18px; width:690px;justify-content:center;margin-bottom:140px;margin-right:200px;}
+      .hero-card{height:580px; width:600px}
+      .hero-title{font-size:34px; width:600px}
+      .tiles{grid-template-columns:1fr; width:600px;margin:50px;}
+      .promo{flex-direction:column;align-items:flex-start;padding:22px; width:600px;margin:50px;}
+      .promo .right{width:600px; margin:50px;}
+      .products{grid-template-columns:1fr; width:600px; margin:50px;}
+    }
+
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-12px)}100%{transform:translateY(0)}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- Header -->
+    <header>
+      <div style="display:flex;gap:18px;align-items:center">
+        <div class="brand">GYMWEARS</div>
+        <nav class="desktop" aria-label="Main navigation">
+          <a href="#home">Home</a>
+          <a href="#shop">Shop</a>
+          <a href="#about">About</a>
+          <a href="#blog">Blog</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px">
+        <i class="bx bx-menu hamburger" id="hamburger" aria-hidden="true"></i>
+
+        <!-- header icons -->
+        <div class="header-icons">
+          <div class="icon" id="search-btn" title="Search"><i class="bx bx-search"></i></div>
+          <div class="icon" id="open-cart" title="Open cart"><i class="bx bx-cart"></i> <span id="cart-count" style="font-size:12px;margin-left:6px"></span></div>
+          <div class="icon" title="Profile"><i class="bx bx-user"></i></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- mobile nav -->
+    <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
+      <a href="#home"><i class="bx bx-home"></i> Home</a>
+      <a href="#shop"><i class="bx bx-store"></i> Shop</a>
+      <a href="#about"><i class="bx bx-info-circle"></i> About</a>
+      <a href="#blog"><i class="bx bx-news"></i> Blog</a>
+      <a href="#contact"><i class="bx bx-phone"></i> Contact</a>
+    </nav>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero hidden" id="home">
+        <div>
+          <div class="eyebrow"> GYM WEARS AND ACCESORIES</div>
+          <h1 class="hero-title">GET THE<br>BEST AFFORDABLE </h1>
+          <p class="hero-desc">Our gym wears and accesories are quality products straight off
+          the factory. Get the best at best rates.</p>
+          <div class="cta"><button class="btn">Shop By Category</button></div>
+        </div>
+        <div class="hero-card">
+          <!-- Replace this image with your large hero headphone image if you have one -->
+          <img src="images/60511_60611_b.png"alt="Headphones" id="heroImage">
+        </div>
+      </section>
+
+      <!-- Tiles -->
+      <section class="tiles hidden" aria-label="Categories">
+        <div class="tile black">
+          <img src="images\MD8200_41.png">          <div><div class="label">Enjoy With<br><strong>MENS TIGHT</strong></div><div class="muted">Discover the best work out shorts</div></div>
+          <div style="align-self:flex-end"><button class="btn-sm">Browse</button></div>
+        </div>
+        <div class="tile yellow">
+          <img src="images\generated-ai-blank-red-sports-pant-isolated-on-transparent-background-free-png.png">    
+          <div><div class="label">Wearable</div><div class="muted">Men Sweats</div></div>
+          <div style="align-self:flex-end"><button class="btn-sm">Browse</button></div>
+        </div>
+        <div class="tile red">
+           <img src="images\mcdavid-hex-thudd-cross-compression-short-black-grey-removebg-preview.png">   
+          <div><div class="label">Sports</div><div class="muted">Black-grey tights</div></div>
+          <div style="align-self:flex-end"><button class="btn-sm">Browse</button></div>
+        </div>
+        <div class="tile light">
+          <img src="images\images__18_-removebg-preview.png">   
+          <div><div class="label">Sweats Pants</div><div class="muted">Wearable</div></div>
+          <div style="align-self:flex-end"><button class="btn-sm">Browse</button></div>
+        </div>
+        <div class="tile green">
+          <img src="images\download__2_-removebg-preview (3).png">    
+          <div><div class="label">Overall Swatpants & Jackets </div><div class="muted">Sports Wear</div></div>
+          <div style="align-self:flex-end"><button class="btn-sm">Browse</button></div>
+        </div>
+        <div class="tile blue">
+           <img src="images\images__7_-removebg-preview.png">   
+          <div><div class="label">White Joggers</div><div class="muted">Sports wear</div></div>
+          <div style="align-self:flex-end"><button class="btn-sm">Browse</button></div>
+        </div>
+      </section>
+
+      <!-- features -->
+      <section class="features hidden" aria-label="features">
+        <div class="feature"><div class="icon-wrap">🚚</div><div><strong>Free Shipping</strong><div style="color:var(--muted)">Free shipping on all order</div></div></div>
+        <div class="feature"><div class="icon-wrap">💰</div><div><strong>Money Guarantee</strong><div style="color:var(--muted)">30 Day Money Back</div></div></div>
+        <div class="feature"><div class="icon-wrap">💬</div><div><strong>Online Support 24/7</strong><div style="color:var(--muted)">Technical Support</div></div></div>
+        <div class="feature"><div class="icon-wrap">🔒</div><div><strong>Secure Payment</strong><div style="color:var(--muted)">All Cards Accepted</div></div></div>
+      </section>
+
+      <!-- promo -->
+      <section class="promo hidden" aria-label="promo">
+        <div class="left">
+          <div style="font-size:13px;opacity:0.95">20% OFF</div>
+          <h2>Find Your<br>BIG — Summer Sale</h2>
+          <p style="opacity:0.95">Hot sweat pants now available. Grab the deal.</p>
+          <div style="margin-top:12px"><button class="btn">Shop</button></div>
+        </div>
+        <div class="right"><img src="images\images__5_-removebg-preview (1).png"alt="red headphone"></div>
+      </section>
+
+      <!-- best sellers -->
+      <section class="section-title hidden"><h2>Best Seller Products</h2><p style="color:var(--muted)">Get Only The Best Sports Wear</p></section>
+
+      <section class="products hidden" id="shop">
+        <!-- Products (data attributes used by JS) -->
+        <div class="product" data-id="p1" data-name="Wool Sweater" data-price="6500">
+          <img src="images\71aqb8z4V6L._AC_UY1000_.jpg" alt="wool sweater">
+          <strong>Cotten  Sweater</strong>
+          <div style="color:var(--muted)">Warm and cozy</div>
+          <div class="price-row"><div><strong>NGN6500.00</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p2" data-name="boxing gloves" data-price="NGN35,000">
+          <img src="images\download (1).jpeg" alt="Earbuds">
+          <strong>Boxing gloves</strong>
+          <div style="color:var(--muted)">Available in all colors</div>
+          <div class="price-row"><div><strong>NGN35000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p3" data-name="Knee Pads" data-price="25000">
+          <img src="images\60630_l_frontback_1_08339f88-97b0-4ace-90fa-24324ac28882_720x.jpg" alt="Console">
+          <strong>Knee Pads</strong>
+          <div style="color:var(--muted)">Knees pad</div>
+          <div class="price-row"><div><strong>NGN 25,000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p4" data-name="Sweat shirt and hood" data-price="35000">
+          <img src="images\3 units sweatshirt with hood and sweatpants.jpeg"
+ alt="sweatpants">
+          <strong>Swatpants & hood</strong>
+          <div style="color:var(--muted)">Sports Wear</div>
+          <div class="price-row"><div><strong>NGN85000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p5" data-name="VR Headset" data-price="80000">
+          <img src="images\images (44).jpeg" alt="Overall Sportswear">
+         
+          <strong>Sportswear overall 2sets</strong>
+          <div style="color:var(--muted)">Sportswear Male & female S,L,XL </div>
+          <div class="price-row"><div><strong>NGN80000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+        
+         <div class="product" data-id="p5" data-name="White joggers" data-price="15000">
+          <img src= "images\images (7).jpeg" alt="White Joggers">
+          <strong>White Joggers</strong>
+          <div style="color:var(--muted)">Comfortable wears<br>
+          available black,white and red<br> S,L,XL</div>
+          <div class="price-row"><div><strong>NGN15,000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+         <div class="product" data-id="p6" data-name="Cotton Sweater" data-price="7500">
+          <img src="images\images (9).jpeg" >
+          <strong>White Cotton Sweater</strong>
+          <div style="color:var(--muted)">Available in white, green and black<br>XL,L,S </div>
+          <div class="price-row"><div><strong>NGN15000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+<div class="product" data-id="p7" data-name="Sportswear " data-price="25000">
+          <img src="images\images (37).jpeg" alt="VR">
+          <strong>Shoulder pad</strong>
+          <div style="color:var(--muted)">Sports wear</div>
+          <div class="price-row"><div><strong>NGN25,000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+<div class="product" data-id="p8" data-name="Kneepad" data-price="25000">
+          <img src= "images\images (36).jpeg"alt="VR">
+          <strong>Kneepad</strong>
+          <div style="color:var(--muted)">Sports accesory <br>Available in all sizes</div>
+          <div class="price-row"><div><strong>NGN25,000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p9" data-name="Nike sweatpants" data-price="15000">
+          <img src="images\images (22).jpeg" alt="VR">
+          <strong>Nike Sweatpants</strong>
+          <div style="color:var(--muted)">available in all sizes<br>S, M,XL,XXL</div>
+          <div class="price-row"><div><strong>NGN 15000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p10" data-name="Sports Headband" data-price="NGN 8500">
+          <img src="images\images (32).jpeg"alt="Sports Handband">
+          <strong>Sports Headband</strong>
+          <div style="color:var(--muted)">Available in all colors, green, black and blue</div>
+          <div class="price-row"><div><strong>NGN8,500</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div> 
+
+        <div class="product" data-id="p11" data-name="Protective Head gear" data-price="22000">
+          <img src="images\images (35).jpeg" alt="Protective Headgear">
+          <strong>Protective Head Gear</strong>
+          <div style="color:var(--muted)">Available in  colors, green, red and black</div>
+          <div class="price-row"><div><strong>NGN22,000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p11" data-name="Men Sports tights" data-price="35000">
+          <img src="images\images (40).jpeg" alt="VR">
+          <strong>Men Sports Tights</strong>
+          <div style="color:var(--muted)">Available in black and grey<br> Sizes XL,L&S </div>
+          <div class="price-row"><div><strong>NGN15000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+       <div class="product" data-id="p12" data-name="Mens Sports tight kneelenght" data-price="35000">
+          <img src="images\images (38).jpeg">
+          <strong>Men Sports tight kneelenght</strong>
+          <div style="color:var(--muted)">Available in grey and white color</div>
+          <div class="price-row"><div><strong>NGN35000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p13" data-name="Joggers" data-price="25000">
+          <img src="images\kids-track-pant-250x250.jpeg" alt="Joggers">
+          <strong>Joggers</strong>
+          <div style="color:var(--muted)">Available in white, blue and black</div>
+          <div class="price-row"><div><strong>NGN25,000 </strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p14" data-name="Crop Hoodie" data-price="20,000">
+          <img src="images\images (17).jpeg" alt="VR">
+          <strong>Pink Crop Hoodie</strong>
+          <div style="color:var(--muted)">Availiable in all sizes<br>
+            in color green, blue and yellow</div>
+          <div class="price-row"><div><strong>NGN20,000</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+        
+
+
+      </section>
+
+       <!-- best sellers -->
+      <section class="section-title hidden"><h2>GET THE BEST HEAD GEAR</h2><p style="color:var(--muted)">Available in allour stores.</p></section>
+
+      <section class="products hidden" id="shop">
+        <!-- Products (data attributes used by JS) -->
+        <div class="product" data-id="p16" data-name="Nike head band" data-price="6500">
+          <img src="images\Nike Cooling Head Tie, Men's, Black_White (1).jpeg" alt="Nikes headband ">
+          <strong>Nike Head Band</strong>
+          <div style="color:var(--muted)">Available in black and white only</div>
+          <div class="price-row"><div><strong>NGN16500.00</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p18" data-name="Wool Sweater" data-price="65,500">
+          <img src="images\Moyel 4 Pack Durags for Men & Women Colourful Velvet Durag Long Tail Headwraps Wide Straps Wave Cap.jpeg" alt="wool sweater">
+          <strong>Cotten  Sweater</strong>
+          <div style="color:var(--muted)">Available in 4 sets</div>
+          <div class="price-row"><div><strong>NGN26500.00</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p1" data-name="Sports bandana" data-price="6500">
+          <img src="images\1pc Quick Dry Sports Bandana.jpeg" alt="Sports Headgear">
+          <strong>Sports Bandana</strong>
+          <div style="color:var(--muted)">Available in both pink and black.</div>
+          <div class="price-row"><div><strong>NGN16500.00</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+
+        <div class="product" data-id="p21" data-name="DURAG" data-price="6500">
+          <img src="images\2 Packs Silk Durag Pirate Hat - Soft, Fragrance-Free, 360 Waves, Extra Long Tail For Maximum Comfort And Style.jpeg" alt="wool sweater">
+          <strong> Black Durag</strong>
+          <div style="color:var(--muted)">available in white and black</div>
+          <div class="price-row"><div><strong>NGN26500.00</strong></div><button class="btn-sm add">Add to cart</button></div>
+        </div>
+      </section>
+
+      <!-- contact -->
+      <section class="contact-section hidden" id="contact">
+        <div style="display:flex;gap:20px;flex-wrap:wrap">
+          <div class="contact-card">
+            <h3>Contact Us</h3>
+            <p style="color:var(--muted)">We're happy to help — send a message or reach us via phone.</p>
+            <ul style="list-style:none;padding-left:0;margin-top:10px;color:var(--muted)">
+              <li>📍 123 Business Avenue, Abuja, Nigeria</li>
+              <li>📞 +234 800 123 4567</li>
+              <li>✉️ info@gymwears</li>
+            </ul>
+          </div>
+          <form class="contact-form" id="contactForm">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Email address" required>
+            <textarea name="message" rows="4" placeholder="Your message"></textarea>
+            <div style="display:flex;justify-content:flex-end"><button class="btn" type="submit">Send Message</button></div>
+          </form>
+        </div>
+      </section>
+
+      <footer class="hidden">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+          <div>© 2025 GYMWEARS — All rights reserved</div>
+          <div style="display:flex;gap:8px;align-items:center">Payments: <span style="font-size:18px;margin-left:8px">💳 🪙</span></div>
+        </div>
+      </footer>
+
+    </main>
+
+    <!-- floating cart -->
+    <div class="cart-fab" id="cartFab" title="Open cart">🛒 <span id="fabCount">0</span></div>
+
+    <!-- cart panel -->
+    <aside class="cart-panel" id="cartPanel" aria-hidden="true">
+      <h4>Your Cart</h4>
+      <div id="cartItems"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px">
+        <div style="color:var(--muted)">Total: <strong id="cartTotal">$0.00</strong></div>
+        <div style="display:flex;gap:8px">
+          <!-- Checkout buttons: Stripe or Paystack -->
+          <button class="btn" id="checkoutStripe">Checkout (Stripe)</button>
+          <button class="btn" id="checkoutPaystack" style="background:#1a8cff">Paystack</button>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <script>
+    /* ---------- slide-up on scroll ---------- */
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('show');
+      });
+    }, {threshold: 0.12});
+    document.querySelectorAll('.hidden').forEach(el => io.observe(el));
+
+    /* ---------- mobile nav ---------- */
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger?.addEventListener('click', () => {
+      mobileNav.classList.toggle('active');
+      hamburger.classList.toggle('bx-x');
+    });
+    mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=> mobileNav.classList.remove('active')));
+
+    /* ---------- cart + storage ---------- */
+    const CART_KEY = 'phlox_cart_v1';
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || '{}');
+
+    const fabCountEl = document.getElementById('fabCount');
+    const cartPanel = document.getElementById('cartPanel');
+    const cartFab = document.getElementById('cartFab');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const openCartIcon = document.getElementById('open-cart');
+    const cartCountHeader = document.getElementById('cart-count');
+
+    function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
+    function calcTotals(){
+      const ids = Object.keys(cart);
+      let qty = 0, total = 0;
+      ids.forEach(id => { qty += cart[id].qty; total += cart[id].qty * cart[id].price; });
+      fabCountEl.textContent = qty;
+      cartTotalEl.textContent = 'NGN' + total.toFixed(2);
+      cartCountHeader.textContent = qty ? `(NGN{qty})` : '';
+      return {ids, qty, total};
+    }
+    function renderCart(){
+      cartItemsEl.innerHTML = '';
+      const {ids} = calcTotals();
+      if(ids.length === 0){
+        cartItemsEl.innerHTML = '<div style="padding:18px;text-align:center;color:var(--muted)">Your cart is empty</div>';
+        return;
+      }
+      ids.forEach(id => {
+        const it = cart[id];
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+        row.innerHTML = `
+          <div style="width:56px;height:56px;background:#f3f3f5;border-radius:8px;display:grid;place-items:center">🖼</div>
+          <div style="flex:1">
+            <div style="font-weight:700">${it.name}</div>
+            <div style="color:var(--muted)">$${it.price.toFixed(2)}</div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <button data-id="${id}" class="cart-dec" aria-label="decrease">-</button>
+            <div>${it.qty}</div>
+            <button data-id="${id}" class="cart-inc" aria-label="increase">+</button>
+          </div>
+        `;
+        cartItemsEl.appendChild(row);
+      });
+
+      cartItemsEl.querySelectorAll('.cart-inc').forEach(b=>b.addEventListener('click', e=>{
+        const id = e.currentTarget.dataset.id; cart[id].qty++; saveCart(); renderCart();
+      }));
+      cartItemsEl.querySelectorAll('.cart-dec').forEach(b=>b.addEventListener('click', e=>{
+        const id = e.currentTarget.dataset.id; cart[id].qty--; if(cart[id].qty<=0) delete cart[id]; saveCart(); renderCart();
+      }));
+    }
+    calcTotals(); renderCart();
+
+    /* ---------- add-to-cart + flying animation ---------- */
+    function animateToCart(imgEl){
+      const rect = imgEl.getBoundingClientRect();
+      const clone = imgEl.cloneNode(true);
+      clone.className = 'flying-img';
+      clone.style.width = rect.width + 'px';
+      clone.style.left = rect.left + 'px';
+      clone.style.top = rect.top + 'px';
+      clone.style.opacity = 1;
+      document.body.appendChild(clone);
+
+      const cartBtn = document.getElementById('cartFab');
+      const cartRect = cartBtn.getBoundingClientRect();
+      const targetX = cartRect.left + (cartRect.width/2) - (rect.width/2);
+      const targetY = cartRect.top + (cartRect.height/2) - (rect.height/2);
+
+      requestAnimationFrame(()=>{
+        clone.style.transform = `translate(${targetX - rect.left}px, ${targetY - rect.top}px) scale(.18)`;
+        clone.style.opacity = 0.5;
+      });
+      setTimeout(()=> clone.style.opacity = 0, 650);
+      setTimeout(()=> clone.remove(), 900);
+    }
+
+    // wire add buttons
+    document.querySelectorAll('.add').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        const card = e.currentTarget.closest('.product');
+        const id = card.dataset.id; const name = card.dataset.name; const price = parseFloat(card.dataset.price);
+        if(!cart[id]) cart[id] = { id, name, price, qty:0 };
+        cart[id].qty++;
+        saveCart(); renderCart();
+
+        // animation: use image inside product card
+        const img = card.querySelector('img');
+        if(img) animateToCart(img);
+
+        // feedback
+        const prev = e.currentTarget.textContent;
+        e.currentTarget.textContent = 'Added';
+        setTimeout(()=> e.currentTarget.textContent = prev, 700);
+      });
+    });
+
+    // toggle cart panel
+    cartFab.addEventListener('click', ()=> {
+      cartPanel.style.display = cartPanel.style.display === 'block' ? 'none' : 'block';
+    });
+    openCartIcon?.addEventListener('click', ()=> cartPanel.style.display = 'block');
+
+    // close cart clicking outside
+    window.addEventListener('click', (e)=>{
+      if(!cartPanel.contains(e.target) && !cartFab.contains(e.target) && e.target.id !== 'open-cart'){
+        cartPanel.style.display = 'none';
+      }
+    });
+
+    // contact form demo
+    document.getElementById('contactForm')?.addEventListener('submit', e=>{
+      e.preventDefault();
+      alert('Thanks! We received your message. (demo)');
+      e.target.reset();
+    });
+
+    /* ---------- Checkout integrations (requires backend) ---------- */
+
+    // ---- STRIPE: client calls your server to create a Checkout session ----
+    // Server endpoint expected: POST /create-checkout-session
+    // Body: { items: [{id, name, price, qty}], successUrl, cancelUrl }
+    // Server should return: { sessionId }
+    // Then load Stripe.js and redirect to checkout: stripe.redirectToCheckout({ sessionId })
+    document.getElementById('checkoutStripe').addEventListener('click', async ()=>{
+      const { ids, total } = (()=>{ const ids=Object.keys(cart); return { ids, total: Object.values(cart).reduce((s,i)=>s+i.qty*i.price,0) } })();
+      if(ids.length===0){ alert('Cart is empty'); return; }
+
+      // Prepare line items for demo — server should use price/currency
+      const items = Object.values(cart).map(i=>({ id:i.id, name:i.name, unit_price: i.price, qty:i.qty }));
+
+      try{
+        // send to your backend to create a Stripe Checkout session
+        const res = await fetch('/create-checkout-session', {
+          method:'POST',
+          headers:{ 'content-type':'application/json' },
+          body: JSON.stringify({ items, successUrl: window.location.href + '?success=1', cancelUrl: window.location.href + '?canceled=1' })
+        });
+        if(!res.ok) throw new Error('Server error');
+        const data = await res.json();
+        if(!data.sessionId){ alert('Server did not return sessionId'); return; }
+
+        // load Stripe.js with your publishable key in server response OR put your publishable key here
+        // Option A: server returns stripePublishableKey + sessionId
+        // Option B: add publishable key below and use it here
+        const stripePublishableKey = data.publishableKey || 'pk_test_REPLACE_ME'; // replace with your key or return from server
+        const stripeScript = document.createElement('script');
+        stripeScript.src = "https://js.stripe.com/v3/";
+        document.head.appendChild(stripeScript);
+        stripeScript.onload = async ()=>{
+          const stripe = Stripe(stripePublishableKey);
+          await stripe.redirectToCheckout({ sessionId: data.sessionId });
+        };
+
+      }catch(err){
+        console.error(err);
+        alert('Failed to start checkout — see console for details');
+      }
+    });
+
+    // ---- PAYSTACK: client calls server to initialize transaction, server returns authorization_url ----
+    // Endpoint: POST /paystack/initialize with order details; server returns { authorization_url }
+    document.getElementById('checkoutPaystack').addEventListener('click', async ()=>{
+      const ids = Object.keys(cart);
+      if(ids.length===0){ alert('Cart is empty'); return; }
+      const items = Object.values(cart).map(i=>({ id:i.id, name:i.name, price:i.price, qty:i.qty }));
+      try{
+        const res = await fetch('/paystack/initialize', {
+          method:'POST',
+          headers:{ 'content-type':'application/json' },
+          body: JSON.stringify({ items, callbackUrl: window.location.href + '?paystack_success=1' })
+        });
+        if(!res.ok) throw new Error('Server error');
+        const data = await res.json();
+        if(data.authorization_url){ window.location.href = data.authorization_url; }
+        else alert('Paystack init failed');
+      }catch(err){
+        console.error(err);
+        alert('Failed to initialize Paystack — see console');
+      }
+    });
+
+  </script>
+</body>
+</html>
+
+
